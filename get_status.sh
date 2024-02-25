@@ -54,7 +54,7 @@ get_info() {
     case "$1" in
         spotify* | vlc | mpv) echo "$1";;
         kdeconnect*) echo "kdeconnect";;
-        chromium*|firefox*)
+        chromium*|firefox*|brave*)
             # if a browser, search window titles:
             # this tries to avoid title messing up the regex
             regex_title=$(echo "$title" | tr "[:punct:]" ".")
