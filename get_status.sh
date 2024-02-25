@@ -40,9 +40,9 @@ get_info() {
 
         if [ -n "$artist" ]; then
             album=$(extract_meta album)
-            [ -n "$album" ] && echo -n "  $album "
+            [ -n "$album" ] && echo -n " 󰀥 $album "
 
-            echo -n " ﴁ $artist  "
+            echo -n " 󰠃 $artist  "
         fi
 
         echo "$title"
@@ -54,12 +54,12 @@ get_info() {
     case "$1" in
         spotify* | vlc | mpv) echo "$1";;
         kdeconnect*) echo "kdeconnect";;
-        chromium*)
+        chromium*|firefox*)
             # if a browser, search window titles:
-
             # this tries to avoid title messing up the regex
             regex_title=$(echo "$title" | tr "[:punct:]" ".")
-            windowname=$(xdotool search --name --class --classname "$regex_title" getwindowname 2>/dev/null)
+            windowname=$(xdotool search --name --class --classname "$regex_title" getwindowname)
+            echo "$windowname"
             case $windowname in
                 "") ;; # ignore if empty
                 *Netflix*) echo "netflix";;
@@ -95,6 +95,6 @@ if [ -n "${PAUSED[0]}" ]; then
     send_hook 2
     get_info "${PAUSED[0]}" "$2"
 else
-    [ "$2" = icon ] && echo "none" || echo " 鈴 no players "
+    [ "$2" = icon ] && echo "none" || echo " 󰒲  Not Playing "
 fi
 
